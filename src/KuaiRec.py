@@ -6,23 +6,14 @@ from loaders.BaseLoader import BaseLoader
 from loaders.KuaiRecLoader import KuaiRecLoader
 
 from models.GRU4Rec import GRU4Rec
-from models.DccfGRU4Rec import DccfGRU4Rec
-from models.DccfNCR import DccfNCR
-from models.IPSGRU4Rec import IPSGRU4Rec
-from models.DICEGRU4Rec import DICEGRU4Rec
-from models.MACRGRU4Rec import MACRGRU4Rec
-from models.IPSSTAMP import IPSSTAMP
-from models.DccfSTAMP import DccfSTAMP
-from models.IPSNCR import IPSNCR
+from models.DyccfGRU4Rec import DyccfGRU4Rec
+from models.DyccfNCR import DyccfNCR
+from models.DyccfSTAMP import DyccfSTAMP
 from models.STAMP import STAMP
 from models.NCR import NCR
-from models.MACRNCR import MACRNCR
-from models.MACRSTAMP import MACRSTAMP
 from runners.BaseRunner import BaseRunner
-from runners.KuaiRecDICERunner import KuaiRecDICERunner
-from runners.KuaiRecMACRRunner import KuaiRecMACRRunner
 from runners.KuaiRecRunner import KuaiRecRunner
-from runners.KuaiRecDccfRunner import KuaiRecDccfRunner
+from runners.KuaiRecDyccfRunner import KuaiRecDyccfRunner
 
 import argparse
 import logging
@@ -53,28 +44,7 @@ def main():
     if init_args.dccf == 1:
         model_name = eval('Dccf' + init_args.model)
         parser = model_name.parse_model_args(parser)
-        runner_name = eval('KuaiRecDccfRunner')
-        parser = runner_name.parse_runner_args(parser)
-    elif init_args.dccf == 2:
-        model_name = eval('MMR' + init_args.model)
-        parser = model_name.parse_model_args(parser)
-        runner_name = eval('KuaiRecMMRRunner')
-        parser = runner_name.parse_runner_args(parser)
-    elif init_args.dccf == 3:
-        model_name = eval('IPS' + init_args.model)
-        parser = model_name.parse_model_args(parser)
-        parser = runner_name.parse_runner_args(parser)
-# #         dccf_runner_name = eval('DccfRunner')
-#         parser = dccf_runner_name.parse_runner_args(parser)
-    elif init_args.dccf == 4:
-        model_name = eval('MACR' + init_args.model)
-        parser = model_name.parse_model_args(parser)
-        runner_name = eval('KuaiRecMACRRunner')
-        parser = runner_name.parse_runner_args(parser)
-    elif init_args.dccf == 5:
-        model_name = eval('DICE' + init_args.model)
-        parser = model_name.parse_model_args(parser)
-        runner_name = eval('KuaiRecDICERunner')
+        runner_name = eval('KuaiRecDyccfRunner')
         parser = runner_name.parse_runner_args(parser)
     else:
         parser = model_name.parse_model_args(parser)
@@ -94,14 +64,6 @@ def main():
                     [p[0].replace('_','')[:3] + str(p[1]) for p in paras if p[0] not in log_name_exclude]
     log_file_name = [l.replace(' ','-').replace('_', '-') for l in log_file_name]
     log_file_name = '_'.join(log_file_name)
-    
-    # phase1_model_exclude = ['verbose', 'gpu', 'seed', 'dataset', 'path', 'phase1', 'dccf', 'ctf_num', 'fact_prob',
-    #                         'model_path', 'log_file', 'metrics', 'load', 'train', 'eval_batch_size', 
-    #                         'early_stop']
-    # phase1_model_file_name = [str(init_args.model), str(args.dataset), str(args.seed)] + \
-    #                          [p[0].replace('_','')[:3] + str(p[1]) for p in paras if p[0] not in phase1_model_exclude]
-    # phase1_model_file_name = [l.replace(' ','-').replace('_', '-') for l in phase1_model_file_name]
-    # phase1_model_file_name = '_'.join(phase1_model_file_name)
     
     
     args.log_file = os.path.join('../log/', '%s/%s/%s.txt' % (init_args.model, args.dataset, log_file_name))
@@ -186,12 +148,6 @@ def main():
     max_len = max(length.values())
     logging.info("average cumulative satisfaction is {}, average interaction length is {}, max interaction length is {}".format(str(avg_cs), str(avg_len),str(max_len)))
         
-#     p, gt, rec_item = runner.predict(model_phase1, testset)
-#     rec_list = evaluator.get_rec_list(p, rec_item, 10)
-#     content_diversity_phase1 = evaluator.content_diversity(model_phase1, rec_list)
-    
-#     logging.info("content diversity at phase 1 is {}, at phase 2 is {}, the difference is {}".format(str(content_diversity_phase1), str(content_diversity_phase2), str(content_diversity_phase1 - content_diversity_phase2)))
-    
     
     
 if __name__ == '__main__':
