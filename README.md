@@ -16,7 +16,7 @@ Environment requirements can be found in `./requirement.txt`
 
 - **MovieLens-1M**: The origin dataset can be found [here](https://grouplens.org/datasets/movielens/).
 
-- The data processing code can be found in `./src/data_processing/'
+- The data processing code can be found in `./src/data_processing/`
 
 ## Example to run the codes
 
