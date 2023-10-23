@@ -1,7 +1,7 @@
 from utils import utils
 from utils import evaluator
 from loaders.HistLoader import HistLoader
-from loaders.DccfHistLoader import DccfHistLoader
+from loaders.DyccfHistLoader import DyccfHistLoader
 from loaders.BaseLoader import BaseLoader
 from loaders.KuaiRecLoader import KuaiRecLoader
 
