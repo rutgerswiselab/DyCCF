@@ -1,4 +1,4 @@
-# DyCCF
+# Dynamic Causal Collaborative Filtering
 
 ## Introduction
 This repository includes the implementation for Dynamic Causal Collaborative Filtering
@@ -12,7 +12,7 @@ Environment requirements can be found in `./requirement.txt`
 
 ## Datasets
   
-- **Electronics**: The origin dataset can be found [here](https://nijianmo.github.io/amazon/index.html.). 
+- **Electronics**: The origin dataset can be found [here](https://nijianmo.github.io/amazon/index.html). 
 
 - **MovieLens-1M**: The origin dataset can be found [here](https://grouplens.org/datasets/movielens/).
 
